@@ -1,103 +1,214 @@
+"use client";
+
+import allGuestsAndTable from "@/utils/guest";
 import Image from "next/image";
+import { useState } from "react";
 
-export default function Home() {
+const LandingPage = () => {
+  const [formData, setFormDta] = useState({
+    firstName: "",
+    lastName: "",
+  });
+
+  const [error, setError] = useState({
+    firstName: "",
+    lastName: "",
+  });
+
+  const [showModal, setShowModal] = useState(false);
+  const [message, setMessage] = useState("");
+  const [isAvailable, setIsAvailable] = useState(false);
+  const [guestFullName, setGuestFullName] = useState("");
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormDta((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+  const handleBlur = (e) => {
+    const { name, value } = e.target;
+    if (value === "") {
+      setError((prevError) => ({
+        ...prevError,
+        [name]: `${name} is required`,
+      }));
+    } else {
+      setError((prevError) => ({
+        ...prevError,
+        [name]: "",
+      }));
+    }
+  };
+  const handleFocus = (e) => {
+    const { name } = e.target;
+    setError((prevError) => ({
+      ...prevError,
+      [name]: "",
+    }));
+  };
+
+  const findGuestSitWithFullName = (fullName) => {
+    allGuestsAndTable.map((table) => {
+      const tableName = Object.keys(table)[0];
+      const guests = table[tableName];
+      const guestToLowerCase = guests.map((guest) =>
+        guest.trim().toLowerCase()
+      );
+
+      // console.log("guestToLowerCase", guestToLowerCase);
+      if (guestToLowerCase.includes(fullName)) {
+        // console.log(
+        //   "yes",
+        //   `${tableName.slice(0, tableName.length - 1)} ${tableName.slice(-1)}`
+        // );
+        setIsAvailable(true);
+        setMessage(
+          `Guest ${fullName.toUpperCase()} is seated at ${tableName.slice(
+            0,
+            tableName.length - 1
+          )} ${tableName.slice(-1)}`
+        );
+
+        return;
+      }
+    });
+  };
+
+  const handleSubmitForm = (e) => {
+    e.preventDefault();
+    if (formData.firstName === "" || formData.lastName === "") {
+      setError({
+        firstName: formData.firstName === "" ? "First name is required" : "",
+        lastName: formData.lastName === "" ? "Last name is required" : "",
+      });
+      return;
+    }
+
+    let firstName = formData.firstName.trim().toLowerCase();
+    let lastName = formData.lastName.trim().toLowerCase();
+
+    let fullName = `${firstName} ${lastName}`;
+    setGuestFullName(fullName.toUpperCase());
+    findGuestSitWithFullName(fullName);
+    setFormDta({ firstName: "", lastName: "" });
+    setShowModal(!showModal);
+
+    console.log("Form submitted successfully");
+  };
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.js
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <>
+      {showModal && (
+        <div className="  ">
+          <div className="fixed backdrop-blur-lg  top-0 left-0 w-full h-full bg-black opacity-95  flex items-center justify-center">
+            <div className="relative  mx-[1rem] rounded-2xl bg-white text-center py-10 px-[5rem]">
+              <h1 className="text-[1.2rem] font-bold">
+                {isAvailable
+                  ? message
+                  : `Guest ${guestFullName} is not seated at any table, please check the name again or contact the event organizer for more assistance .`}
+              </h1>
+              <p
+                className="absolute cursor-pointer hover:text-[#000011] top-[.5rem] right-[1rem]"
+                onClick={() => {
+                  setShowModal(!showModal);
+                  setMessage("");
+                  setIsAvailable(false);
+                }}
+              >
+                x
+              </p>
+            </div>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+      )}
+      <div className="flex items-center justify-center h-screen ">
+        <div className=" max-w-[50%] p-10 rounded-lg  shadow-2xl text-black">
+          <div className="flex items-center justify-between gap-5">
+            <div className="w-full  h-full">
+              <div className="text-4xl text-center font-bold mb-4">
+                <h1>Welcome !</h1>
+                <p className="text-[.8rem] mt-[.5rem] font-light">
+                  Kindly Enter you Name
+                </p>
+              </div>
+
+              <div className="">
+                <div className="w-full my-[1rem]">
+                  <label className="text-[.8rem]" htmlFor="firstName">
+                    First Name
+                  </label>{" "}
+                  <br></br>
+                  <input
+                    type="text"
+                    value={formData.firstName}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    onFocus={handleFocus}
+                    name="firstName"
+                    placeholder="Enter your first name"
+                    className="p-2 placeholder:text-[.8rem] rounded-lg border w-full border-gray-300 outline-none"
+                  />
+                  {error.firstName && (
+                    <p className="text-red-500 text-sm mt-1">
+                      First name is required
+                    </p>
+                  )}
+                </div>
+
+                <div className="w-full my-[1rem]">
+                  <label className="text-[.8rem]" htmlFor="lastName">
+                    Last Name
+                  </label>{" "}
+                  <br></br>
+                  <input
+                    type="text"
+                    value={formData.lastName}
+                    onChange={handleChange}
+                    onFocus={handleFocus}
+                    onBlur={handleBlur}
+                    name="lastName"
+                    placeholder="Enter your last name"
+                    className="p-2 rounded-lg placeholder:text-[.8rem]  border w-full border-gray-300 outline-none"
+                  />
+                  {error.lastName && (
+                    <p className="text-red-500 text-sm mt-1">
+                      Last name is required
+                    </p>
+                  )}
+                </div>
+              </div>
+              <div className="mt-[2rem]">
+                <button
+                  className="bg-blue-500 w-full text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300 cursor-pointer"
+                  onClick={handleSubmitForm}
+                >
+                  Submit
+                </button>
+              </div>
+            </div>
+            <div className="w-full h-full">
+              {/* <img
+                src="../assets/owambe.jpg"
+                alt="people dancing image"
+                className="w-full h-[fit] object-cover  mt-[2rem] rounded-lg"
+              /> */}
+
+              <Image 
+                width={500}
+                height={500}
+                priority
+                src="/owambe.jpg"
+                alt="people dancing image"
+                className="w-full h-[fit] object-cover rounded-lg"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
   );
-}
+};
+
+export default LandingPage;
