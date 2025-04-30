@@ -65,7 +65,7 @@ const LandingPage = () => {
         // );
         setIsAvailable(true);
         setMessage(
-          `Guest ${fullName.toUpperCase()} is seated at ${tableName.slice(
+          `Hello ${fullName.toUpperCase()}, you are seated at ${tableName.slice(
             0,
             tableName.length - 1
           )} ${tableName.slice(-1)}`
@@ -102,12 +102,12 @@ const LandingPage = () => {
     <>
       {showModal && (
         <div className="  ">
-          <div className="fixed backdrop-blur-lg  top-0 left-0 w-full h-full bg-black opacity-95  flex items-center justify-center">
-            <div className="relative  mx-[1rem] rounded-2xl bg-white text-center py-10 px-[5rem]">
+          <div className="fixed backdrop-blur-lg   top-0 left-0 w-full h-full   flex items-center justify-center">
+            <div className="relative text-white mx-[1rem] rounded-2xl !bg-black text-center py-10 px-[5rem]">
               <h1 className="text-[1.2rem] font-bold">
                 {isAvailable
                   ? message
-                  : `Guest ${guestFullName} is not seated at any table, please check the name again or contact the event organizer for more assistance .`}
+                  : `Hello ${guestFullName}, you not seated at any table, please check the your again or contact the event organizer for more assistance .`}
               </h1>
               <p
                 className="absolute cursor-pointer hover:text-[#000011] top-[.5rem] right-[1rem]"
@@ -128,7 +128,7 @@ const LandingPage = () => {
           <div className="flex items-center justify-between gap-5">
             <div className="w-full  h-full">
               <div className="text-4xl text-center font-bold mb-4">
-                <h1>Welcome !</h1>
+                <h1 className="text-[.8rem] sm:text-[green] md:text-[yellow] lg:text-[red]">Welcome !</h1>
                 <p className="text-[.8rem] mt-[.5rem] font-light">
                   Kindly Enter you Name
                 </p>
