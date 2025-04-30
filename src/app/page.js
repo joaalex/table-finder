@@ -125,10 +125,10 @@ const LandingPage = () => {
       )}
       <div className="flex items-center justify-center h-screen ">
         <div className=" max-w-[50%] p-10 rounded-lg  shadow-2xl text-black">
-          <div className="flex items-center justify-between gap-5">
+          <div className="flex flex-col md:flex-row  items-center justify-between gap-5">
             <div className="w-full  h-full">
               <div className="text-4xl text-center font-bold mb-4">
-                <h1 className="text-[.8rem] sm:text-[green] md:text-[yellow] lg:text-[red]">Welcome !</h1>
+                <h1 className="text-[.8rem] md:text-[1.5rem]">Welcome !</h1>
                 <p className="text-[.8rem] mt-[.5rem] font-light">
                   Kindly Enter you Name
                 </p>
@@ -136,7 +136,7 @@ const LandingPage = () => {
 
               <div className="">
                 <div className="w-full my-[1rem]">
-                  <label className="text-[.8rem]" htmlFor="firstName">
+                  <label className="text-[.8rem] " htmlFor="firstName">
                     First Name
                   </label>{" "}
                   <br></br>
@@ -201,7 +201,7 @@ const LandingPage = () => {
                 priority
                 src="/owambe.jpg"
                 alt="people dancing image"
-                className="w-full h-[fit] object-cover rounded-lg"
+                className="w-full h-[fit]  object-cover rounded-lg"
               />
             </div>
           </div>
