@@ -124,7 +124,7 @@ const LandingPage = () => {
         </div>
       )}
       <div className="flex items-center justify-center h-screen ">
-        <div className=" max-w-[50%] p-10 rounded-lg  shadow-2xl text-black">
+        <div className=" max-w-[50%] p-10 rounded-lg bg-white shadow-2xl text-black">
           <div className="flex flex-col md:flex-row  items-center justify-between gap-5">
             <div className="w-full  h-full">
               <div className="text-4xl text-center font-bold mb-4">
