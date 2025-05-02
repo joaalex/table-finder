@@ -199,7 +199,7 @@ const LandingPage = () => {
                 width={500}
                 height={500}
                 priority
-                src="/owambe.jpg"
+                src="/IMG-20250418-WA0043.jpg"
                 alt="people dancing image"
                 className="w-full h-[fit]  object-cover rounded-lg"
               />
