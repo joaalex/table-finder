@@ -107,7 +107,7 @@ const LandingPage = () => {
               <h1 className="text-[1.2rem] font-bold">
                 {isAvailable
                   ? message
-                  : `Hello ${guestFullName}, you are not seated at any table, please check the your name again or contact the event organizer for more assistance .`}
+                  : `Hello ${guestFullName}, you are not seated at any table, please check your name again or contact the event organizer for more assistance .`}
               </h1>
               <p
                 className="absolute cursor-pointer hover:text-[#000011] top-[.5rem] right-[1rem]"
