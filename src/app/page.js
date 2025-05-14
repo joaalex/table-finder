@@ -95,7 +95,6 @@ const LandingPage = () => {
     setFormDta({ firstName: "", lastName: "" });
     setShowModal(!showModal);
 
-    console.log("Form submitted successfully");
   };
 
   return (
@@ -110,7 +109,7 @@ const LandingPage = () => {
                   : `Hello ${guestFullName}, you are not seated at any table, please check your name again or contact the event organizer for more assistance .`}
               </h1>
               <p
-                className="absolute cursor-pointer hover:text-[#000011] top-[.5rem] right-[1rem]"
+                className="absolute cursor-pointer  top-[.5rem] right-[1rem]"
                 onClick={() => {
                   setShowModal(!showModal);
                   setMessage("");
