@@ -129,7 +129,7 @@ const LandingPage = () => {
               <div className="text-4xl text-center font-bold mb-4">
                 <h1 className="text-[.8rem] md:text-[1.5rem]">Welcome !</h1>
                 <p className="text-[.8rem] mt-[.5rem] font-light">
-                  Kindly Enter you Name
+                  Kindly Enter Your Name
                 </p>
               </div>
 

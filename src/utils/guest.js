@@ -79,6 +79,9 @@ const allGuestsAndTable = [
       "Demola Lantinwo",
       "Foluke Lantinwo",
       "Adekunle Adebola",
+      "Muyiwa Oke",
+      "Kunle Adebola",
+      
     ],
   },
   {
@@ -104,6 +107,7 @@ const allGuestsAndTable = [
       "Daniella Duroshola",
       "Tayo Akintoye",
       "Ayomipo Ojutalayo",
+      "Fatimah Akintoye",
     ],
   },
   {
