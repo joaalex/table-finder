@@ -179,12 +179,12 @@ const LandingPage = () => {
                 </div>
               </div>
               <div className="mt-[2rem]">
-                <button
+                {/* <button
                   className="bg-blue-500 w-full text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300 cursor-pointer"
                   onClick={handleSubmitForm}
                 >
                   Submit
-                </button>
+                </button> */}
               </div>
             </div>
             <div className="w-full h-full">
